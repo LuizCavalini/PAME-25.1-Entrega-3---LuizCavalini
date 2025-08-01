@@ -1,13 +1,19 @@
+"use client"; // Necessário para usar hooks como useState e useContext
+
 import { Lollipop } from "@/types";
 import Link from "next/link";
 import Image from "next/image";
-import { Heart } from "lucide-react"; 
+import { Heart } from "lucide-react";
+import { useFavorites } from "@/lib/Favoritos"; // Importe o hook
 
 interface LollipopCardProps {
   lollipop: Lollipop;
 }
 
 export default function LollipopCard({ lollipop }: LollipopCardProps) {
+  const { toggleFavorite, isFavorite } = useFavorites(); // Use o contexto
+  const favorite = isFavorite(lollipop.id);
+
   return (
     <div className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white">
       <div className="relative">
@@ -18,8 +24,13 @@ export default function LollipopCard({ lollipop }: LollipopCardProps) {
           height={400}
           className="object-cover w-full h-64"
         />
-        <button className="absolute top-2 right-2 bg-white rounded-full p-2 hover:bg-red-100 transition-colors">
-          <Heart className="h-6 w-6 text-gray-600 hover:text-red-500" />
+        <button
+          onClick={() => toggleFavorite(lollipop.id)} // Adicione o evento de clique
+          className="absolute top-2 right-2 bg-white rounded-full p-2 hover:bg-red-100 transition-colors"
+        >
+          <Heart
+            className={`h-6 w-6 ${favorite ? 'text-red-500 fill-current' : 'text-gray-600'}`} // Estilo condicional
+          />
         </button>
       </div>
       <div className="p-4">
