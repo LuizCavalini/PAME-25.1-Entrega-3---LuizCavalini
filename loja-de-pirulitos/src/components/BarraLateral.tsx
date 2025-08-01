@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { Home, Heart, User, ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/Carrinho"; 
+import { useSession, signOut } from "next-auth/react";
 
 export default function Sidebar() {
   const { cartItems } = useCart();
+  const { data: session, status } = useSession();
 
   // Calcula o total de itens no carrinho (somando as quantidades de cada item)
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
