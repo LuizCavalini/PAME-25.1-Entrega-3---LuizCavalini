@@ -25,7 +25,7 @@ export default function LollipopCard({ lollipop }: LollipopCardProps) {
           className="object-cover w-full h-64"
         />
         <button
-          onClick={() => toggleFavorite(lollipop.id)} // Adicione o evento de clique
+          onClick={() => toggleFavorite(lollipop.id)} 
           className="absolute top-2 right-2 bg-white rounded-full p-2 hover:bg-red-100 transition-colors"
         >
           <Heart

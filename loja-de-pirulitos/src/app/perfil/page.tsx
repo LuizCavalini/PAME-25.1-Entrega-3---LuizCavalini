@@ -1,17 +1,18 @@
-import { auth } from "@/auth"; // Importamos a função de autenticação
+import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { User, Mail, LogIn } from 'lucide-react';
 
 export default async function PerfilPage() {
-  // Buscamos a sessão diretamente no servidor
   const session = await auth();
 
-  // Se não houver sessão (usuário não logado), redirecionamos para o login
+  // Se não houver sessão, a função `redirect` é chamada.
+  // Ela interrompe a renderização e redireciona o usuário.
   if (!session?.user) {
     redirect("/login");
   }
 
-  // Se houver sessão, mostramos as informações do usuário
+  // Se houver uma sessão, a função continua e retorna o JSX abaixo,
+  // que é um componente React válido.
   return (
     <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">

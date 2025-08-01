@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image"; 
 import { Home, Heart, User, ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/Carrinho"; 
 import { useSession, signOut } from "next-auth/react";
@@ -14,7 +15,17 @@ export default function Sidebar() {
 
   return (
     <aside className="w-64 bg-gray-800 text-white p-6 flex flex-col">
-      <h2 className="text-2xl font-bold mb-10 text-center text-pink-400">PirulitoPop</h2>
+      <div className="mb-10 flex justify-center">
+        <Link href="/">
+            <Image
+                src="/images/logot.png" // O caminho para sua logo na pasta public
+                alt="Logo"
+                width={300} // Ajuste a largura conforme necessário
+                height={50} // Ajuste a altura conforme necessário
+                priority 
+            />
+        </Link>
+      </div>
       
       <nav className="flex flex-col space-y-4">
         {/* LINKS */}

@@ -91,10 +91,10 @@ export default function PirulitoDetalhePage({ params }: PirulitoDetalhePageProps
                 type="number"
                 min="1"
                 value={quantity}
-                onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value, 10)))} // Garante que o valor não seja menor que 1
-                className="w-20 p-2 border rounded-md text-center"
+                onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value, 10)))}
+                className="w-20 p-2 border rounded-md text-center text-gray-900 font-bold" // <-- ADICIONADO AQUI
                 disabled={!lollipop.isAvailable}
-              />
+                />
               <button
                 onClick={handleAddToCart}
                 disabled={!lollipop.isAvailable}
