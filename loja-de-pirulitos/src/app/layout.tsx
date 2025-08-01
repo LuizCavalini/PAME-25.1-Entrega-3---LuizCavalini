@@ -1,11 +1,7 @@
-// src/app/layout.tsx
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Sidebar from "@/components/BarraLateral";
-import { FavoritesProvider } from "@/lib/Favoritos";
-import { CartProvider } from "@/lib/Carrinho"; 
-import NextAuthProvider from "@/lib/ProvedordeSessao";
+import Providers from "@/components/Provedores";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,18 +18,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={inter.className}>
-        <NextAuthProvider>
-          <FavoritesProvider>
-            <CartProvider> {/* 2. Adicione o CartProvider */}
-              <div className="flex h-screen bg-gray-100">
-                <Sidebar />
-                <main className="flex-1 p-8 overflow-y-auto">
-                  {children}
-                </main>
-              </div>
-            </CartProvider>
-          </FavoritesProvider>
-        </NextAuthProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
