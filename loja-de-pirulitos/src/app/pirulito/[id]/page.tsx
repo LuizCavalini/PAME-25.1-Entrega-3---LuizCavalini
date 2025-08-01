@@ -1,11 +1,11 @@
-"use client"; 
+"use client";
 
-import { useState, useEffect } from "react"; 
-import { lollipops } from "@/data/Pirulitos";
+import { useState, useEffect } from "react";
+import { lollipops } from "@/data/Pirulitos"; 
+import { useCart } from "@/lib/Carrinho";
 import { Lollipop } from "@/types";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { useCart } from "@/lib/Carrinho"; 
 
 interface PirulitoDetalhePageProps {
   params: {
@@ -13,15 +13,14 @@ interface PirulitoDetalhePageProps {
   };
 }
 
-
 const getLollipop = (id: number): Lollipop | undefined => {
-    return lollipops.find(p => p.id === id);
+  return lollipops.find(p => p.id === id);
 }
 
 export default function PirulitoDetalhePage({ params }: PirulitoDetalhePageProps) {
   const [lollipop, setLollipop] = useState<Lollipop | null>(null);
-  const [quantity, setQuantity] = useState(1); // Estado para a quantidade
-  const { addToCart } = useCart(); // Acessar a função do carrinho
+  const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const lollipopId = parseInt(params.id, 10);
@@ -41,7 +40,7 @@ export default function PirulitoDetalhePage({ params }: PirulitoDetalhePageProps
   };
 
   if (!lollipop) {
-    return <div>Carregando...</div>; 
+    return <div className="text-center text-gray-500">Carregando...</div>;
   }
 
   return (
@@ -61,25 +60,42 @@ export default function PirulitoDetalhePage({ params }: PirulitoDetalhePageProps
         {/* Coluna de Informações */}
         <div className="flex flex-col">
           <h1 className="text-4xl font-extrabold text-gray-900">{lollipop.name}</h1>
-          {/* ... (outras informações do pirulito) ... */}
+          <p className="text-2xl text-pink-500 font-bold my-2">{lollipop.flavor}</p>
           <p className="text-3xl font-light text-gray-800 mt-4">
             R$ {lollipop.price.toFixed(2).replace('.', ',')}
           </p>
-          
-          {/* ... (descrição, ingredientes) ... */}
+
+          {/* DESCRIÇÃO E INGREDIENTES */}
+          <div className="mt-6">
+            <h3 className="text-lg font-semibold text-gray-700">Descrição Completa</h3>
+            <p className="text-gray-600 mt-1">{lollipop.longDescription}</p>
+          </div>
+
+          <div className="mt-4">
+            <h3 className="text-lg font-semibold text-gray-700">Ingredientes</h3>
+            <ul className="list-disc list-inside text-gray-600 mt-1">
+              {lollipop.ingredients.map(ing => <li key={ing}>{ing}</li>)}
+            </ul>
+          </div>
 
           <div className="mt-auto pt-6">
-            {/* 6. Substituir o botão "Comprar" pelo seletor de quantidade e "Adicionar ao Carrinho" */}
+            {/* DISPONIBILIDADE */}
+            <div className="mb-4">
+                <p className={`font-semibold ${lollipop.isAvailable ? 'text-green-600' : 'text-red-600'}`}>
+                {lollipop.isAvailable ? 'Disponível em estoque' : 'Indisponível no momento'}
+                </p>
+            </div>
+            
             <div className="flex items-center gap-4">
-              <input 
+              <input
                 type="number"
                 min="1"
                 value={quantity}
-                onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
+                onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value, 10)))} // Garante que o valor não seja menor que 1
                 className="w-20 p-2 border rounded-md text-center"
                 disabled={!lollipop.isAvailable}
               />
-              <button 
+              <button
                 onClick={handleAddToCart}
                 disabled={!lollipop.isAvailable}
                 className="flex-1 bg-green-500 text-white font-bold py-3 rounded-lg hover:bg-green-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"

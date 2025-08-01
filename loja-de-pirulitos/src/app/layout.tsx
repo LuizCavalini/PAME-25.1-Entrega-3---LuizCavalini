@@ -5,6 +5,7 @@ import "./globals.css";
 import Sidebar from "@/components/BarraLateral";
 import { FavoritesProvider } from "@/lib/Favoritos";
 import { CartProvider } from "@/lib/Carrinho"; 
+import NextAuthProvider from "@/lib/ProvedordeSessao";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,16 +22,18 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={inter.className}>
-        <FavoritesProvider>
-          <CartProvider> {/* 2. Adicione o CartProvider */}
-            <div className="flex h-screen bg-gray-100">
-              <Sidebar />
-              <main className="flex-1 p-8 overflow-y-auto">
-                {children}
-              </main>
-            </div>
-          </CartProvider>
-        </FavoritesProvider>
+        <NextAuthProvider>
+          <FavoritesProvider>
+            <CartProvider> {/* 2. Adicione o CartProvider */}
+              <div className="flex h-screen bg-gray-100">
+                <Sidebar />
+                <main className="flex-1 p-8 overflow-y-auto">
+                  {children}
+                </main>
+              </div>
+            </CartProvider>
+          </FavoritesProvider>
+        </NextAuthProvider>
       </body>
     </html>
   );
