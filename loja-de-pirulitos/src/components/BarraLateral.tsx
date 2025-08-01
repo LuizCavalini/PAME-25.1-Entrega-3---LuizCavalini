@@ -4,7 +4,7 @@ import { Home, Heart, User } from "lucide-react";
 export default function Sidebar() {
   return (
     <aside className="w-64 bg-gray-800 text-white p-6 flex flex-col">
-      <h2 className="text-2xl font-bold mb-10 text-center text-pink-400">PirulitoPop</h2>
+      
       <nav className="flex flex-col space-y-4">
         <Link href="/" className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors">
           <Home className="h-6 w-6" />
