@@ -1,5 +1,5 @@
 // src/types/index.ts
-export interface pirulito{
+export interface Lollipop {
   id: number;
   name: string;
   flavor: string;
