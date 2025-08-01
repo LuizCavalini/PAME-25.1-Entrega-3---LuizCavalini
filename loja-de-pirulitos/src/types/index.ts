@@ -9,3 +9,7 @@ export interface Lollipop {
   imageUrl: string;
   isAvailable: boolean;
 }
+
+export interface CartItem extends Lollipop {
+  quantity: number;
+}
